@@ -1,6 +1,7 @@
 package com.example.safeyourfamily.presentation.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         retrofitClient = RetrofitClient.getInstance();
         familyService = retrofitClient.getService();
+        Log.i("TAG", "onViewCreated: sdf")
         return view;
     }
 
