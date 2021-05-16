@@ -1,5 +1,7 @@
 package com.example.safeyourfamily.presentation.auth;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -40,11 +42,20 @@ public class AuthFragment extends Fragment {
     public AuthInfoPersist authInfoPersist;
     public FamilyService familyService;
 
+    private HashMap<String, String> body = new HashMap<>();
+
+    SharedPreferences preferences;
+
     Callback<SignupInfo> callback = new Callback<SignupInfo>() {
 
         @Override
         public void onResponse(Call<SignupInfo> call, Response<SignupInfo> response) {
-            textView.setText(response.body().name);
+            preferences.edit()
+                    .putString("name", response.body().name)
+                    .putString("login", body.get("login"))
+                    .putString("password", body.get("password"))
+                    .apply();
+            ((MainActivity) requireActivity()).goToMain();
         }
 
         @Override
@@ -59,6 +70,7 @@ public class AuthFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_auth_screen, container, false);
         initializeSingletons();
         familyService = retrofitClient.getService();
+        preferences = requireActivity().getSharedPreferences("AuthInfo", Context.MODE_PRIVATE);
         return view;
     }
 
@@ -74,17 +86,21 @@ public class AuthFragment extends Fragment {
         editTextPassword = view.findViewById(R.id.editTextPassword);
         updateButton = view.findViewById(R.id.updateButton);
         textView = view.findViewById(R.id.authInfo);
-        updateButton.setOnClickListener(new View.OnClickListener(){
+        updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), editTextLogin.getText(), Toast.LENGTH_SHORT).show();
-                HashMap<String, String> body = new HashMap<>();
-                body.put("login", "sofya");
-                body.put("password", "1234");
-                familyService.checkAuth(body).enqueue(callback);
-//                authInfoPersist.loginInfo = editTextLogin.getText().toString();
-            }
+                String login = editTextLogin.getText().toString();
+                String password = editTextPassword.getText().toString();
 
+                body.put("login", login);
+                body.put("password", password);
+
+                if (!body.isEmpty()) {
+                    familyService.checkAuth(body).enqueue(callback);
+                } else {
+                    Toast.makeText(getActivity(), "Введите данные для входа", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 //        view.findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
 //            @Override

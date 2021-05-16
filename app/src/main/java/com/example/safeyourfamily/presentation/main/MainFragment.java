@@ -1,5 +1,7 @@
 package com.example.safeyourfamily.presentation.main;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,17 +30,19 @@ public class MainFragment extends Fragment {
     private RetrofitClient retrofitClient;
     private FamilyService familyService;
 
-    Callback<PersonInfo> callback = new Callback<PersonInfo>() {
-        @Override
-        public void onResponse(Call<PersonInfo> call, Response<PersonInfo> response) {
-            name.setText(response.body().botEnabled);
-        }
+    SharedPreferences preferences;
 
-        @Override
-        public void onFailure(Call<PersonInfo> call, Throwable t) {
-            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    };
+//    Callback<PersonInfo> callback = new Callback<PersonInfo>() {
+//        @Override
+//        public void onResponse(Call<PersonInfo> call, Response<PersonInfo> response) {
+//            name.setText(response.body().botEnabled);
+//        }
+//
+//        @Override
+//        public void onFailure(Call<PersonInfo> call, Throwable t) {
+//            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+//        }
+//    };
 
     @Nullable
     @Override
@@ -46,6 +50,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         retrofitClient = RetrofitClient.getInstance();
         familyService = retrofitClient.getService();
+        preferences = requireActivity().getSharedPreferences("AuthInfo", Context.MODE_PRIVATE);
         Log.i("TAG", "onViewCreated: sdf");
         return view;
     }
@@ -54,8 +59,9 @@ public class MainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         name = view.findViewById(R.id.person_name);
+        name.setText(preferences.getString("name",  " "));
         //name.setText("Sveta");
-        familyService.getFamilyInfo().enqueue(callback);
-        Toast.makeText(requireActivity(), AuthInfoPersist.getInstance().loginInfo, Toast.LENGTH_SHORT).show();
+//        familyService.getFamilyInfo().enqueue(callback);
+//        Toast.makeText(requireActivity(), AuthInfoPersist.getInstance().loginInfo, Toast.LENGTH_SHORT).show();
     }
 }
