@@ -57,6 +57,5 @@ public class MainFragment extends Fragment {
         //name.setText("Sveta");
         familyService.getFamilyInfo().enqueue(callback);
         Toast.makeText(requireActivity(), AuthInfoPersist.getInstance().loginInfo, Toast.LENGTH_SHORT).show();
-
     }
 }

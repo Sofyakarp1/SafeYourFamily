@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.safeyourfamily.R;
 import com.example.safeyourfamily.data.AuthInfo;
 import com.example.safeyourfamily.data.PersonInfo;
+import com.example.safeyourfamily.data.SignupInfo;
 import com.example.safeyourfamily.db.AuthInfoPersist;
 import com.example.safeyourfamily.network.FamilyService;
 import com.example.safeyourfamily.network.RetrofitClient;
@@ -37,15 +38,15 @@ public class AuthFragment extends Fragment {
     public AuthInfoPersist authInfoPersist;
     public FamilyService familyService;
 
-    Callback<AuthInfo> callback = new Callback<AuthInfo>() {
+    Callback<SignupInfo> callback = new Callback<SignupInfo>() {
 
         @Override
-        public void onResponse(Call<AuthInfo> call, Response<AuthInfo> response) {
-            textView.setText(response.body().address);
+        public void onResponse(Call<SignupInfo> call, Response<SignupInfo> response) {
+            textView.setText(response.body().name);
         }
 
         @Override
-        public void onFailure(Call<AuthInfo> call, Throwable t) {
+        public void onFailure(Call<SignupInfo> call, Throwable t) {
             Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
@@ -71,18 +72,17 @@ public class AuthFragment extends Fragment {
         editTextPassword = view.findViewById(R.id.editTextPassword);
         updateButton = view.findViewById(R.id.updateButton);
         textView = view.findViewById(R.id.authInfo);
-        updateButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), editTextLogin.getText(), Toast.LENGTH_SHORT).show();
-                familyService.checkAuth().enqueue(callback);
-                authInfoPersist.loginInfo = editTextLogin.getText().toString();
-            }
-
-        });
-
-        view.findViewById(R.id.sdf).setOnClickListener(new View.OnClickListener() {
+//        updateButton.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getActivity(), editTextLogin.getText(), Toast.LENGTH_SHORT).show();
+//                familyService.checkAuth().enqueue(callback);
+//                authInfoPersist.loginInfo = editTextLogin.getText().toString();
+//            }
+//
+//        });
+        view.findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((MainActivity)requireActivity()).goToMain();
