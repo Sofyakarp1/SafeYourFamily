@@ -60,6 +60,7 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         name = view.findViewById(R.id.person_name);
         name.setText(preferences.getString("name",  " "));
+        Toast.makeText(requireActivity(), preferences.getString("password",  " ") + preferences.getString("login",  " "), Toast.LENGTH_SHORT).show();
         //name.setText("Sveta");
 //        familyService.getFamilyInfo().enqueue(callback);
 //        Toast.makeText(requireActivity(), AuthInfoPersist.getInstance().loginInfo, Toast.LENGTH_SHORT).show();
