@@ -24,6 +24,8 @@ import com.example.safeyourfamily.network.RetrofitClient;
 import com.example.safeyourfamily.presentation.main.MainActivity;
 import com.example.safeyourfamily.presentation.main.MainFragment;
 
+import java.util.HashMap;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,22 +74,24 @@ public class AuthFragment extends Fragment {
         editTextPassword = view.findViewById(R.id.editTextPassword);
         updateButton = view.findViewById(R.id.updateButton);
         textView = view.findViewById(R.id.authInfo);
-//        updateButton.setOnClickListener(new View.OnClickListener(){
-//
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getActivity(), editTextLogin.getText(), Toast.LENGTH_SHORT).show();
-//                familyService.checkAuth().enqueue(callback);
-//                authInfoPersist.loginInfo = editTextLogin.getText().toString();
-//            }
-//
-//        });
-        view.findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
+        updateButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                ((MainActivity)requireActivity()).goToMain();
+                Toast.makeText(getActivity(), editTextLogin.getText(), Toast.LENGTH_SHORT).show();
+                HashMap<String, String> body = new HashMap<>();
+                body.put("login", "sofya");
+                body.put("password", "1234");
+                familyService.checkAuth(body).enqueue(callback);
+//                authInfoPersist.loginInfo = editTextLogin.getText().toString();
             }
+
         });
+//        view.findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ((MainActivity)requireActivity()).goToMain();
+//            }
+//        });
         //familyService.getFamilyInfo().enqueue(callback);
 
     }
