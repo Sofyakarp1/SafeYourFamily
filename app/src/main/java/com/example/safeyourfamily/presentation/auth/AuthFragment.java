@@ -3,7 +3,6 @@ package com.example.safeyourfamily.presentation.auth;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.safeyourfamily.R;
-import com.example.safeyourfamily.data.AuthInfo;
-import com.example.safeyourfamily.data.PersonInfo;
 import com.example.safeyourfamily.data.SignupInfo;
 import com.example.safeyourfamily.db.AuthInfoPersist;
 import com.example.safeyourfamily.network.FamilyService;
 import com.example.safeyourfamily.network.RetrofitClient;
 import com.example.safeyourfamily.presentation.main.MainActivity;
-import com.example.safeyourfamily.presentation.main.MainFragment;
 
 import java.util.HashMap;
 
@@ -84,7 +80,7 @@ public class AuthFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         editTextLogin = view.findViewById(R.id.editTextLogin);
         editTextPassword = view.findViewById(R.id.editTextPassword);
-        updateButton = view.findViewById(R.id.updateButton);
+        updateButton = view.findViewById(R.id.signInButton);
         textView = view.findViewById(R.id.authInfo);
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override

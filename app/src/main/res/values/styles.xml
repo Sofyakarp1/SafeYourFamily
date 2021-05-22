@@ -4,9 +4,20 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@android:color/black</item>
         <item name="android:statusBarColor">@color/colorButton</item>
         <item name="android:navigationBarColor">@color/colorButton</item>
+    </style>
+
+    <style name="CustomTextViewTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CustomTextViewThemeInFrame" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:layout_width">120dp</item>
     </style>
 
 </resources>

@@ -1,13 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:background="@android:color/white">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_30"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="179dp"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <View
+        android:id="@+id/bottomCircle"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_green_circle"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/person_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Vlada" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="Привет, юзер1"
+        android:textColor="#C3000000"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/main_info"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Информация об активности, 0:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_30" />
+
+    <TextView
+        android:id="@+id/action"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:text="Движение"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/main_info" />
+
+
+    <TextView
+        android:id="@+id/value_action"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="YYEss"
+        app:layout_constraintBottom_toBottomOf="@+id/action"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/action" />
+
+    <TextView
+        android:id="@+id/time_action"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Time action"
+        app:layout_constraintStart_toStartOf="@+id/action"
+        app:layout_constraintTop_toBottomOf="@id/main_info"
+        app:layout_constraintTop_toTopOf="@id/action" />
+
+    <TextView
+        android:id="@+id/value_time_action"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="00:00:00"
+        app:layout_constraintBottom_toBottomOf="@+id/time_action"
+        app:layout_constraintStart_toStartOf="@id/value_action"
+        app:layout_constraintTop_toTopOf="@id/time_action" />
+
+    <TextView
+        android:id="@+id/rele"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="rele"
+        app:layout_constraintStart_toStartOf="@+id/time_action"
+        app:layout_constraintTop_toBottomOf="@id/main_info"
+        app:layout_constraintTop_toTopOf="@id/time_action" />
+
+    <TextView
+        android:id="@+id/value_rele"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="YES"
+        app:layout_constraintBottom_toBottomOf="@+id/rele"
+        app:layout_constraintStart_toStartOf="@+id/value_time_action"
+        app:layout_constraintTop_toTopOf="@id/rele" />
+
+    <TextView
+        android:id="@+id/time_rele"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Time rele"
+        app:layout_constraintStart_toStartOf="@+id/rele"
+        app:layout_constraintTop_toBottomOf="@id/main_info"
+        app:layout_constraintTop_toTopOf="@id/rele" />
+
+    <TextView
+        android:id="@+id/value_time_rele"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="00:00:00"
+        app:layout_constraintBottom_toBottomOf="@+id/time_rele"
+        app:layout_constraintStart_toStartOf="@+id/value_rele"
+        app:layout_constraintTop_toTopOf="@id/time_rele" />
+
+    <TextView
+        android:id="@+id/result"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Result"
+        app:layout_constraintStart_toStartOf="@+id/time_rele"
+        app:layout_constraintTop_toBottomOf="@id/main_info"
+        app:layout_constraintTop_toTopOf="@id/time_rele" />
+
+    <TextView
+        android:id="@+id/value_result"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="GOOD"
+        app:layout_constraintBottom_toBottomOf="@+id/result"
+        app:layout_constraintStart_toStartOf="@+id/value_time_rele"
+        app:layout_constraintTop_toTopOf="@id/result" />
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/bg_button_light_green"
+        android:text="Обновить"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textStyle="normal"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/value_result" />
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
