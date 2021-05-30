@@ -8,25 +8,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.safeyourfamily.R;
-import com.example.safeyourfamily.data.PersonInfo;
-import com.example.safeyourfamily.db.AuthInfoPersist;
+import com.example.safeyourfamily.data.DataObserved;
+import com.example.safeyourfamily.data.Observed;
+import com.example.safeyourfamily.data.SignupInfo;
 import com.example.safeyourfamily.network.FamilyService;
 import com.example.safeyourfamily.network.RetrofitClient;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import static com.example.safeyourfamily.R.id.value_action;
 
 public class MainFragment extends Fragment {
 
-    private TextView name;
+    private TextView namePerson;
+    private TextView nameObserved;
+    private TextView value_action;
+    private TextView value_time_action;
+    private TextView value_rele;
+    private TextView value_time_rele;
+
+
     private RetrofitClient retrofitClient;
     private FamilyService familyService;
 
@@ -58,11 +67,63 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        name = view.findViewById(R.id.person_name);
-        name.setText(preferences.getString("name",  " "));
-        Toast.makeText(requireActivity(), preferences.getString("password",  " ") + preferences.getString("login",  " "), Toast.LENGTH_SHORT).show();
-        //name.setText("Sveta");
-//        familyService.getFamilyInfo().enqueue(callback);
-//        Toast.makeText(requireActivity(), AuthInfoPersist.getInstance().loginInfo, Toast.LENGTH_SHORT).show();
+        //TODO отобразить имя в observedUserName
+        namePerson = view.findViewById(R.id.person_name);
+        nameObserved = view.findViewById(R.id.main_info);
+
+        value_action = view.findViewById(R.id.value_action);
+        value_time_action = view.findViewById(R.id.value_time_action);
+        value_rele = view.findViewById(R.id.value_rele);
+        value_time_rele = view.findViewById(R.id.value_time_rele);
+
+        SignupInfo userInfo = getSignupInfo(preferences.getString("SIGNUP_INFO", " "));
+        Observed observed = getObserved(preferences.getString("OBSERVED", " "));
+        String str = preferences.getString("DATA_OBSERVED", " ");
+        DataObserved dataObserved = getDataObserved(preferences.getString("DATA_OBSERVED", " "));
+
+        value_action.setText(dataObserved.sensor_action);
+        value_rele.setText(dataObserved.sensor_rele);
+        value_time_action.setText(dataObserved.time_action);
+        value_time_rele.setText(dataObserved.time_rele);
+
+
+        namePerson.setText("Привет, " + userInfo.name + "!");
+        nameObserved.setText("Информация об активности, " + observed.getName());
     }
+
+    private SignupInfo getSignupInfo(String singupinfo) {
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject json = (JSONObject) parser.parse(singupinfo);
+            return new SignupInfo((Long) json.get("id"), json.get("phone").toString(), json.get("name").toString(), json.get("address").toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Error when converting json to SignUpInfo");
+
+    }
+
+    private Observed getObserved(String observed) {
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject json = (JSONObject) parser.parse(observed);
+            return new Observed((Long) json.get("id"), json.get("phone").toString(), json.get("name").toString(), json.get("address").toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Error when converting json to Observed");
+
+    }
+
+    private DataObserved getDataObserved(String data) {
+        JSONParser parser = new JSONParser();
+        try {
+            JSONObject json = (JSONObject) parser.parse(data);
+            return new DataObserved(json.get("name").toString(), json.get("sensor_action").toString(), json.get("sensor_rele").toString(), json.get("time_action").toString(), json.get("time_rele").toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException("Error when converting json to DataObserved");
+    }
+
 }

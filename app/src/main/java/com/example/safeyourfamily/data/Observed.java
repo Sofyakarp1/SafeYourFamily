@@ -1,12 +1,12 @@
 package com.example.safeyourfamily.data;
 
-public class SignupInfo {
+public class Observed {
     public Long id;
     public String phone;
     public String name;
     public String address;
 
-    public SignupInfo(Long id, String phone, String name, String address) {
+    public Observed(Long id, String phone, String name, String address) {
         this.id = id;
         this.phone = phone;
         this.name = name;

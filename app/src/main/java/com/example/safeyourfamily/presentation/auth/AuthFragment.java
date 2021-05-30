@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.safeyourfamily.R;
+import com.example.safeyourfamily.data.DataObserved;
+import com.example.safeyourfamily.data.Observed;
 import com.example.safeyourfamily.data.SignupInfo;
 import com.example.safeyourfamily.db.AuthInfoPersist;
 import com.example.safeyourfamily.network.FamilyService;
@@ -40,18 +42,65 @@ public class AuthFragment extends Fragment {
 
     private HashMap<String, String> body = new HashMap<>();
 
+    private HashMap<String, String> body_2 = new HashMap<>();
+
     SharedPreferences preferences;
 
-    Callback<SignupInfo> callback = new Callback<SignupInfo>() {
+
+    Callback<DataObserved> callbackDataObserved = new Callback<DataObserved>() {
+
+        @Override
+        public void onResponse(Call<DataObserved> call, Response<DataObserved> response) {
+            if(response.body()!=null){
+                preferences.edit()
+                        .putString("DATA_OBSERVED", response.body().toJsonString())
+                        .apply();
+                ((MainActivity) requireActivity()).goToMain();
+            }
+            else {
+                Toast.makeText(getActivity(), "Ошибка в получении данных, обратитесь к администратору!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<DataObserved> call, Throwable t) {
+
+        }
+    };
+
+    Callback<Observed> callbackObserved = new Callback<Observed>() {
+
+        @Override
+        public void onResponse(Call<Observed> call, Response<Observed> response) {
+            if (response.body() != null) {
+                preferences.edit()
+                        .putString("OBSERVED", response.body().toString())
+                        .apply();
+                familyService.dataObserved(body).enqueue(callbackDataObserved);
+            } else {
+                Toast.makeText(getActivity(), "Ошибка в получении данных, обратитесь к вдминистратору!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Observed> call, Throwable t) {
+
+        }
+    };
+
+    Callback<SignupInfo> callbackAuth = new Callback<SignupInfo>() {
 
         @Override
         public void onResponse(Call<SignupInfo> call, Response<SignupInfo> response) {
-            preferences.edit()
-                    .putString("name", response.body().name)
-                    .putString("login", body.get("login"))
-                    .putString("password", body.get("password"))
-                    .apply();
-            ((MainActivity) requireActivity()).goToMain();
+            if (response.body() != null) {
+                preferences.edit()
+                        .putString("SIGNUP_INFO", response.body().toString())
+                        .apply();
+                //((MainActivity) requireActivity()).goToMain();
+                familyService.getInfoObserved(body).enqueue(callbackObserved);
+            } else {
+                Toast.makeText(getActivity(), "Ошибка авторизации", Toast.LENGTH_SHORT).show();
+            }
         }
 
         @Override
@@ -92,7 +141,7 @@ public class AuthFragment extends Fragment {
                 body.put("password", password);
 
                 if (!body.isEmpty()) {
-                    familyService.checkAuth(body).enqueue(callback);
+                    familyService.checkAuth(body).enqueue(callbackAuth);
                 } else {
                     Toast.makeText(getActivity(), "Введите данные для входа", Toast.LENGTH_SHORT).show();
                 }

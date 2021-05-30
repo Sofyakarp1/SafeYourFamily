@@ -1,23 +1,23 @@
 package com.example.safeyourfamily.data;
 
-public class SignupInfo {
-    public Long id;
+public class Person {
+    public Integer id;
     public String phone;
     public String name;
     public String address;
 
-    public SignupInfo(Long id, String phone, String name, String address) {
+    public Person(Integer id, String phone, String name, String address) {
         this.id = id;
         this.phone = phone;
         this.name = name;
         this.address = address;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,5 +48,6 @@ public class SignupInfo {
     @Override
     public String toString() {
         return "{\"id\":" + id + ", \"name\":\"" + name + "\" , \"address\":\"" + address + "\" , \"phone\":\""+ phone + "\"}";
+
     }
 }
