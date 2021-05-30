@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_50"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="53dp"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <View
+        android:id="@+id/bottomCircle"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/light_green_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_50" />
+
+
+    <TextView
+        android:id="@+id/infoUser1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="272dp"
+        android:text="Привет, юзер1"
+        android:textColor="#C3000000"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_50"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/phone"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:text="Телефон:"
+        app:layout_constraintEnd_toStartOf="@+id/infoUser1"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="132dp" />
+
+    <TextView
+        android:id="@+id/value_phone"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_width="250dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="YYEss"
+        app:layout_constraintStart_toStartOf="@+id/phone"
+        tools:layout_editor_absoluteY="189dp" />
+
+    <TextView
+        android:id="@+id/address"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Адресс:"
+        app:layout_constraintStart_toStartOf="@+id/value_phone"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="275dp" />
+
+    <TextView
+        android:id="@+id/value_address"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_width="255dp"
+        android:layout_height="77dp"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="00:00:00"
+        app:layout_constraintStart_toStartOf="@+id/address"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="325dp" />
+
+    <TextView
+        android:id="@+id/dangerous"
+        style="@style/CustomTextViewTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Телефоны экстренных служб:"
+        app:layout_constraintStart_toStartOf="@+id/value_address"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="424dp" />
+
+    <TextView
+        android:id="@+id/value_dangerous"
+        style="@style/CustomTextViewThemeInFrame"
+        android:layout_width="256dp"
+        android:layout_height="143dp"
+        android:background="@drawable/bg_edit_text_white"
+        android:text="YES"
+        app:layout_constraintStart_toStartOf="@+id/dangerous"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="482dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
