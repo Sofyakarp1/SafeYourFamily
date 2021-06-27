@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.safeyourfamily.R;
 import com.example.safeyourfamily.presentation.auth.AuthFragment;
+import com.example.safeyourfamily.presentation.result.ResultFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,6 +26,13 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.main_container, new MainFragment(), "main_fragment")
+                .commit();
+    }
+
+    public void goToResult(){
+        getSupportFragmentManager().beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.main_container, new ResultFragment(), "result_fragment")
                 .commit();
     }
 }

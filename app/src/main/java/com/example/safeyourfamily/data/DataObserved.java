@@ -6,13 +6,15 @@ public class DataObserved {
     public String sensor_rele;
     public String time_action;
     public String time_rele;
+    public String result;
 
-    public DataObserved(String name, String sensor_action, String sensor_rele, String time_action, String time_rele) {
+    public DataObserved(String name, String sensor_action, String sensor_rele, String time_action, String time_rele, String result) {
         this.name = name;
         this.sensor_action = sensor_action;
         this.sensor_rele = sensor_rele;
         this.time_action = time_action;
         this.time_rele = time_rele;
+        this.result = result;
     }
 
     public String getName() {
@@ -55,9 +57,16 @@ public class DataObserved {
         this.time_rele = time_rele;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
 
     public String toJsonString() {
-        return "{\"name\":\"" + name + "\" , \"sensor_action\":\"" + sensor_action + "\" , \"sensor_rele\":\""+ sensor_rele  + "\" , \"time_action\":\""+ time_action + "\" , \"time_rele\":\""+ time_rele + "\"}";
+        return "{\"name\":\"" + name + "\" , \"sensor_action\":\"" + sensor_action + "\" , \"sensor_rele\":\""+ sensor_rele  + "\" , \"time_action\":\""+ time_action + "\" , \"time_rele\":\""+ time_rele + "\" , \"result\":\""+ result + "\"}";
     }
 
 

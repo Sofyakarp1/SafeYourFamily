@@ -1,5 +1,6 @@
 package com.example.safeyourfamily.presentation.auth;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -46,6 +47,9 @@ public class AuthFragment extends Fragment {
 
     SharedPreferences preferences;
 
+    String login;
+    String password;
+
 
     Callback<DataObserved> callbackDataObserved = new Callback<DataObserved>() {
 
@@ -90,9 +94,12 @@ public class AuthFragment extends Fragment {
 
     Callback<SignupInfo> callbackAuth = new Callback<SignupInfo>() {
 
+        @SuppressLint("CommitPrefEdits")
         @Override
         public void onResponse(Call<SignupInfo> call, Response<SignupInfo> response) {
             if (response.body() != null) {
+                preferences.edit().putString("login", login);
+                preferences.edit().putString("password", password);
                 preferences.edit()
                         .putString("SIGNUP_INFO", response.body().toString())
                         .apply();
@@ -134,8 +141,8 @@ public class AuthFragment extends Fragment {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String login = editTextLogin.getText().toString();
-                String password = editTextPassword.getText().toString();
+                login = editTextLogin.getText().toString();
+                password = editTextPassword.getText().toString();
 
                 body.put("login", login);
                 body.put("password", password);
