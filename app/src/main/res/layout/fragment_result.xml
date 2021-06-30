@@ -106,7 +106,8 @@
         android:layout_height="143dp"
         android:layout_marginTop="36dp"
         android:background="@drawable/bg_edit_text_white"
-        android:text="YES"
+        android:text="МЧС и пожарная охрана 01\nПолиция 02\nСкорая медицинская помощь 03
+"
         app:layout_constraintStart_toStartOf="@+id/dangerous"
         app:layout_constraintTop_toBottomOf="@+id/dangerous"
         tools:ignore="MissingConstraints" />

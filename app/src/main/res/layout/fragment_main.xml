@@ -78,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Time action"
+        android:text="Время движения"
         app:layout_constraintStart_toStartOf="@+id/action"
         app:layout_constraintTop_toBottomOf="@id/main_info"
         app:layout_constraintTop_toTopOf="@id/action" />
@@ -99,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="rele"
+        android:text="Сигнал реле"
         app:layout_constraintStart_toStartOf="@+id/time_action"
         app:layout_constraintTop_toBottomOf="@id/main_info"
         app:layout_constraintTop_toTopOf="@id/time_action" />
@@ -120,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Time rele"
+        android:text="Время сигнала реле"
         app:layout_constraintStart_toStartOf="@+id/rele"
         app:layout_constraintTop_toBottomOf="@id/main_info"
         app:layout_constraintTop_toTopOf="@id/rele" />
@@ -141,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="Result"
+        android:text="Результат"
         app:layout_constraintStart_toStartOf="@+id/time_rele"
         app:layout_constraintTop_toBottomOf="@id/main_info"
         app:layout_constraintTop_toTopOf="@id/time_rele" />

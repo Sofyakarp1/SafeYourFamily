@@ -57,7 +57,7 @@ public class AuthFragment extends Fragment {
         public void onResponse(Call<DataObserved> call, Response<DataObserved> response) {
             if(response.body()!=null){
                 preferences.edit()
-                        .putString("DATA_OBSERVED", response.body().toJsonString())
+                        .putString("DATA_OBSERVED" , response.body().toJsonString())
                         .apply();
                 ((MainActivity) requireActivity()).goToMain();
             }
@@ -98,8 +98,8 @@ public class AuthFragment extends Fragment {
         @Override
         public void onResponse(Call<SignupInfo> call, Response<SignupInfo> response) {
             if (response.body() != null) {
-                preferences.edit().putString("login", login);
-                preferences.edit().putString("password", password);
+                preferences.edit().putString("login", login).apply();;
+                preferences.edit().putString("password", password).apply();;
                 preferences.edit()
                         .putString("SIGNUP_INFO", response.body().toString())
                         .apply();
@@ -154,14 +154,6 @@ public class AuthFragment extends Fragment {
                 }
             }
         });
-//        view.findViewById(R.id.updateButton).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ((MainActivity)requireActivity()).goToMain();
-//            }
-//        });
-        //familyService.getFamilyInfo().enqueue(callback);
-
     }
 
 }

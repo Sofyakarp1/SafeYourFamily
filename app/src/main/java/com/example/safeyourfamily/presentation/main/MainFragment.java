@@ -1,5 +1,6 @@
 package com.example.safeyourfamily.presentation.main;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.example.safeyourfamily.data.Observed;
 import com.example.safeyourfamily.data.SignupInfo;
 import com.example.safeyourfamily.network.FamilyService;
 import com.example.safeyourfamily.network.RetrofitClient;
+import com.example.safeyourfamily.data.SignupInfo;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -52,17 +54,46 @@ public class MainFragment extends Fragment {
 
     SharedPreferences preferences;
 
-//    Callback<PersonInfo> callback = new Callback<PersonInfo>() {
-//        @Override
-//        public void onResponse(Call<PersonInfo> call, Response<PersonInfo> response) {
-//            name.setText(response.body().botEnabled);
-//        }
-//
-//        @Override
-//        public void onFailure(Call<PersonInfo> call, Throwable t) {
-//            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-//        }
-//    };
+    Callback<DataObserved> callbackDataObservedSecond = new Callback<DataObserved>() {
+
+        @Override
+        public void onResponse(Call<DataObserved> call, Response<DataObserved> response) {
+            if(response.body()!=null){
+                preferences.edit()
+                        .putString("DATA_OBSERVED" , response.body().toJsonString())
+                        .apply();
+                ((MainActivity) requireActivity()).goToMain();
+            }
+            else {
+                Toast.makeText(getActivity(), "Ошибка в получении данных, обратитесь к администратору!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<DataObserved> call, Throwable t) {
+
+        }
+    };
+
+    Callback<Observed> callbackObserved = new Callback<Observed>() {
+
+        @Override
+        public void onResponse(Call<Observed> call, Response<Observed> response) {
+            if (response.body() != null) {
+                preferences.edit()
+                        .putString("OBSERVED", response.body().toString())
+                        .apply();
+                familyService.dataObserved(body).enqueue(callbackDataObservedSecond);
+            } else {
+                Toast.makeText(getActivity(), "Ошибка в получении данных, обратитесь к вдминистратору!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<Observed> call, Throwable t) {
+
+        }
+    };
 
     Callback<DataObserved> callbackDataObserved = new Callback<DataObserved>() {
 
@@ -72,10 +103,13 @@ public class MainFragment extends Fragment {
                 preferences.edit()
                         .putString("DATA_OBSERVED", response.body().toJsonString())
                         .apply();
-                if (response.body().result != "bad"){
+                if (!response.body().getResult().equals("Безопасно")){
                     ((MainActivity) requireActivity()).goToResult();
                 }
-                else ((MainActivity) requireActivity()).goToMain();
+                else {
+                    familyService.getInfoObserved(body).enqueue(callbackObserved);
+                }
+
             }
             else {
                 Toast.makeText(getActivity(), "Ошибка в получении данных, обратитесь к администратору!", Toast.LENGTH_SHORT).show();
@@ -137,6 +171,10 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 familyService.dataObserved(body).enqueue(callbackDataObserved);
+                System.out.println(preferences.getString("DATA_OBSERVED", " "));
+                System.out.println(preferences.getString("OBSERVED", " "));
+                System.out.println(preferences.getString("login", ""));
+                System.out.println(preferences.getString("password", ""));
             }
         });
 
